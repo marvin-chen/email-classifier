@@ -1,4 +1,4 @@
-# Email Classifier
+# Email Classifier - Work in Progress
 
 A local email classification tool using [Ollama](https://ollama.com/) (local LLM) and the Gmail API. This project aims to automatically categorize emails and apply labels for better inbox management.
 
@@ -67,12 +67,6 @@ email-classifier/
 - Gmail API credentials
 - Ollama installed and running locally
 - See `requirements.txt` for full dependency list
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
