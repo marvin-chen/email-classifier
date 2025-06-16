@@ -1,17 +1,22 @@
-# This script serves as a simple command-line interface to fetch, clean, and classify emails.
-
-from email_classifier.gmail_integration import fetch_emails
-from email_classifier.utils import clean_email_text
-from email_classifier.classifier import classify_email
+from email_classifier.classifier import EmailClassifier
+from email_classifier.gmail_integration import GmailClient
 
 def main():
-    emails = fetch_emails()
+    # Initialize components
+    classifier = EmailClassifier()
+    gmail_client = GmailClient()
+
+    # Fetch emails
+    emails = gmail_client.fetch_emails(max_results=5)
+    if not emails:
+        print("No emails fetched.")
+        return
+
+    # Classify and label emails
     for email in emails:
-        cleaned_body = clean_email_text(email["body"])
-        category = classify_email(cleaned_body)
-        print(f"Subject: {email['subject']}")
-        print(f"Category: {category}")
-        print("-" * 40)
+        label = classifier.classify_email(email["snippet"])
+        print(f"Email {email['id']} classified as: {label}")
+        gmail_client.apply_label(email["id"], label)
 
 if __name__ == "__main__":
     main()
